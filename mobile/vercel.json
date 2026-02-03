@@ -1,0 +1,23 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!_expo|assets|sw\\.js|manifest\\.json|favicon\\.ico|index\\.html).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    }
+  ]
+}

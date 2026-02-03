@@ -1,0 +1,83 @@
+{
+  "expo": {
+    "name": "AtoZ Mobile",
+    "slug": "atoz-mobile",
+    "scheme": "atoz",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0d6efd"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.atoz.mobile",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow AtoZ to access your camera to scan documents.",
+        "NSPhotoLibraryUsageDescription": "Allow AtoZ to access your photos to upload documents.",
+        "NSLocationWhenInUseUsageDescription": "Allow AtoZ to access your location for job check-ins."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0d6efd"
+      },
+      "package": "com.atoz.mobile",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro",
+      "output": "single",
+      "name": "AtoZ Interpreting",
+      "shortName": "AtoZ",
+      "description": "AtoZ Interpreting and Translation Services - Mobile App",
+      "lang": "en",
+      "themeColor": "#0d6efd",
+      "backgroundColor": "#ffffff",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": "/",
+      "scope": "/"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow AtoZ to access your location for job check-ins."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow AtoZ to access your photos to upload documents.",
+          "cameraPermission": "Allow AtoZ to access your camera to scan documents."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "atoz-mobile"
+      }
+    }
+  }
+}
