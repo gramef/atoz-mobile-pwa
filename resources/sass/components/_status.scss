@@ -1,0 +1,28 @@
+.status {
+    font-weight: bold;
+    text-transform: capitalize;
+
+    &--assigned,
+    &--accepted,
+    &--quote-accepted,
+    &--completed {
+        color: $green;
+    }
+
+    &--pending,
+    &--matched,
+    &--quoted,
+    &--quote-sent {
+        color: $orange;
+    }
+
+    &--cancelled,
+    &--rejected,
+    &--quote-rejected {
+        color: $red;
+    }
+
+    small.requested {
+        color: $black;
+    }
+}

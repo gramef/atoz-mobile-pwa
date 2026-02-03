@@ -1,0 +1,1 @@
+@include('auth.passwords.reset', [ 'buttonText' => 'Create Account' ])

@@ -1,0 +1,51 @@
+.sidebar {
+    position: fixed;
+    top: 115px;
+    left: 0;
+    height: calc(100vh - 115px);
+    width: 115px;
+    background-color: white;
+    display: none;
+    padding-top: 25px;
+
+    &__item {
+        position: relative;
+        margin-bottom: 30px;
+
+        &--active {
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 0;
+                width: 5px;
+                height: 50px;
+                background-color: $blue;
+            }
+        }
+    }
+
+    &__link {
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &__image {
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    &__text {
+        font-weight: normal;
+        font-size: 14px;
+        color: #000000;  
+        text-align: center;
+    }
+
+    @media (min-width: 1200px) {
+        display: block;
+    }   
+}

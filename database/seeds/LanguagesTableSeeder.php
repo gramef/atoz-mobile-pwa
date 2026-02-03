@@ -1,0 +1,156 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use App\Language;
+
+class LanguagesTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Language::create([ 'name' => 'Afrikaans']);
+        Language::create([ 'name' => 'Arabic']);
+        Language::create([ 'name' => 'Adioukrou']);
+        Language::create([ 'name' => 'Albanian']);
+        Language::create([ 'name' => 'Akan']);
+        Language::create([ 'name' => 'Amazigh']);
+        Language::create([ 'name' => 'Amharic']);
+        Language::create([ 'name' => 'Armenian']);
+        Language::create([ 'name' => 'Ashanti']);
+        Language::create([ 'name' => 'Azari']);
+        Language::create([ 'name' => 'Azerbaijani']);
+        Language::create([ 'name' => 'Badini']);
+        Language::create([ 'name' => 'Belarussian']);
+        Language::create([ 'name' => 'Bengali']);
+        Language::create([ 'name' => 'Berber']);
+        Language::create([ 'name' => 'Bosnian']);
+        Language::create([ 'name' => 'Burushaski']);
+        Language::create([ 'name' => 'BSL']);
+        Language::create([ 'name' => 'Bulgarian']);
+        Language::create([ 'name' => 'Burmese']);
+        Language::create([ 'name' => 'Burgundian']);
+        Language::create([ 'name' => 'Burundi']);
+        Language::create([ 'name' => 'Bajuni']);
+        Language::create([ 'name' => 'Baluchi']);
+        Language::create([ 'name' => 'Cantonese']);
+        Language::create([ 'name' => 'Catlan']);
+        Language::create([ 'name' => 'Chinese']);
+        Language::create([ 'name' => 'Croatian']);
+        Language::create([ 'name' => 'Czech']);
+        Language::create([ 'name' => 'Capeverdean Kriol']);
+        Language::create([ 'name' => 'Danish']);
+        Language::create([ 'name' => 'Dari']);
+        Language::create([ 'name' => 'Diola']);
+        Language::create([ 'name' => 'Dioala']);
+        Language::create([ 'name' => 'Dutch']);
+        Language::create([ 'name' => 'Estonian']);
+        Language::create([ 'name' => 'English']  );
+        Language::create([ 'name' => 'Farsi']);
+        Language::create([ 'name' => 'Finnish']);
+        Language::create([ 'name' => 'Flemish']);
+        Language::create([ 'name' => 'French']);
+        Language::create([ 'name' => 'Fula']);
+        Language::create([ 'name' => 'Gag']);
+        Language::create([ 'name' => 'Gaelic(Welsh)']);
+        Language::create([ 'name' => 'Gaelic(Scottish)']);
+        Language::create([ 'name' => 'Georgia']);
+        Language::create([ 'name' => 'German']);
+        Language::create([ 'name' => 'Gorani']);
+        Language::create([ 'name' => 'Greek']);
+        Language::create([ 'name' => 'Gujarati']);
+        Language::create([ 'name' => 'Hakka']);
+        Language::create([ 'name' => 'Hebrew']);
+        Language::create([ 'name' => 'Hindi']);
+        Language::create([ 'name' => 'Hindko']);
+        Language::create([ 'name' => 'Hungarian']);
+        Language::create([ 'name' => 'Hausa']);
+        Language::create([ 'name' => 'Icelandic']);
+        Language::create([ 'name' => 'Igbo']);
+        Language::create([ 'name' => 'Indonesian']);
+        Language::create([ 'name' => 'Italian']);
+        Language::create([ 'name' => 'Illongo']);
+        Language::create([ 'name' => 'Ishan']);
+        Language::create([ 'name' => 'Japanese']);
+        Language::create([ 'name' => 'Kathiawadi']);
+        Language::create([ 'name' => 'Kazakh']);
+        Language::create([ 'name' => 'Kosovan']);
+        Language::create([ 'name' => 'Korean']);
+        Language::create([ 'name' => 'Karatianian']);
+        Language::create([ 'name' => 'Kurdish']);
+        Language::create([ 'name' => 'Kurmanji']);
+        Language::create([ 'name' => 'Kannada']);
+        Language::create([ 'name' => 'Kuchi']);
+        Language::create([ 'name' => 'Kitubu']);
+        Language::create([ 'name' => 'Kirundi']);
+        Language::create([ 'name' => 'Kurmanji']);
+        Language::create([ 'name' => 'Kimyarwandi']);
+        Language::create([ 'name' => 'Kikuyu']);
+        Language::create([ 'name' => 'Kiswahali']);
+        Language::create([ 'name' => 'Khuwar']);
+        Language::create([ 'name' => 'Latvian']);
+        Language::create([ 'name' => 'Lingala']);
+        Language::create([ 'name' => 'Lithuanian']);
+        Language::create([ 'name' => 'Macedonian']);
+        Language::create([ 'name' => 'Malayalam']);
+        Language::create([ 'name' => 'Malinke']);
+        Language::create([ 'name' => 'Mandarin']);
+        Language::create([ 'name' => 'Marathi']);
+        Language::create([ 'name' => 'Mirpuri']);
+        Language::create([ 'name' => 'Mongolian']);
+        Language::create([ 'name' => 'Malay']);
+        Language::create([ 'name' => 'Mandinka']);
+        Language::create([ 'name' => 'Montenergrin']);
+        Language::create([ 'name' => 'Nepali']);
+        Language::create([ 'name' => 'Norwegian']);
+        Language::create([ 'name' => 'Ndebele']);
+        Language::create([ 'name' => 'Panjabi']);
+        Language::create([ 'name' => 'Pashto']);
+        Language::create([ 'name' => 'Pidgin English']);
+        Language::create([ 'name' => 'Polish']);
+        Language::create([ 'name' => 'Portuguese']);
+        Language::create([ 'name' => 'Potawari']);
+        Language::create([ 'name' => 'Romanian']);
+        Language::create([ 'name' => 'Russian']);
+        Language::create([ 'name' => 'Rwanda']);
+        Language::create([ 'name' => 'Serbian']);
+        Language::create([ 'name' => 'Sinhalese']);
+        Language::create([ 'name' => 'Slovakian']);
+        Language::create([ 'name' => 'Slovenia']);
+        Language::create([ 'name' => 'Somali']);
+        Language::create([ 'name' => 'Susu']);
+        Language::create([ 'name' => 'Spanish']);
+        Language::create([ 'name' => 'Swahili']);
+        Language::create([ 'name' => 'Swedish']);
+        Language::create([ 'name' => 'Sylhetti']);
+        Language::create([ 'name' => 'Sorani']);
+        Language::create([ 'name' => 'Shona']);
+        Language::create([ 'name' => 'Serbo-Croatian']);
+        Language::create([ 'name' => 'Shinia']);
+        Language::create([ 'name' => 'Tagalog']);
+        Language::create([ 'name' => 'Tamil']);
+        Language::create([ 'name' => 'Telugu']);
+        Language::create([ 'name' => 'Tigranian']);
+        Language::create([ 'name' => 'Tshiluba']);
+        Language::create([ 'name' => 'Turkish']);
+        Language::create([ 'name' => 'Twi']);
+        Language::create([ 'name' => 'Taiwanese']);
+        Language::create([ 'name' => 'Tigre']);
+        Language::create([ 'name' => 'Thai'] );
+        Language::create([ 'name' => 'Ukrainian']);
+        Language::create([ 'name' => 'Urdu']);
+        Language::create([ 'name' => 'Uzbek']);
+        Language::create([ 'name' => 'Vietnamese']);
+        Language::create([ 'name' => 'Venda'] );
+        Language::create([ 'name' => 'Welsh']);
+        Language::create([ 'name' => 'Wakhi']);
+        Language::create([ 'name' => 'Woolof']  );
+        Language::create([ 'name' => 'Xhosa'] );
+        Language::create([ 'name' => 'Yemeni']);
+        Language::create([ 'name' => 'Yoruba'] );
+        Language::create([ 'name' => 'Zulu']);
+    }
+}

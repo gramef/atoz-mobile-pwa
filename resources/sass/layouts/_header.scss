@@ -1,0 +1,230 @@
+.header {
+    background-color: white;
+    height: 85px;
+    border-bottom: 1px solid $gallery;
+    display: flex;
+    align-items: center; 
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+
+    &__logo {
+        width: 100%;
+        max-width: 85px;
+        padding: 12px 18px 17px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid $gallery;
+
+        @media (min-width: 768px) {
+            padding: 0;
+            max-width: 115px;
+            height: 100%;
+        }
+    }
+
+    &__image {
+        
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        height: 100%;
+        width: 100%;
+        padding-right: 15px;
+
+        @media (min-width: 768px) {
+            padding-right: 20px;
+            padding-left: 20px;
+            justify-content: space-between;
+        }
+
+        @media (min-width: 1200px) {
+            padding-right: 45px;
+            padding-left: 47px;
+        }
+    }
+
+    &__logout {
+        @extend .flex-container;
+        position: relative;
+
+        &--open {
+            .header__chevron {
+                transform: rotate(-180deg);
+                position: relative;
+            }
+
+            .header__dropdown {
+                display: block;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
+
+    &__name {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 21px;
+        color: #000000;
+        margin: 0;
+
+        @media (min-width: 1200px) {
+            margin-right: 25px;
+        }
+    }
+
+    &__chevron {
+        transition: transform 0.3s;
+        user-select: none;
+        margin-left: 15px;
+    }
+
+    &__dropdown {
+        display: none;
+        padding: 5px 20px;
+        position: absolute;
+        bottom: -40px;
+        left: 0;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+    }
+
+    &__link {
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 21px;
+        color: $blue;
+        display: inline-block;
+
+        &:hover {
+            text-decoration: none;
+            color: $blue;
+        }
+
+        @media (min-width: 1200px) {
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 21px;
+        }
+    }
+
+    &__search {
+        @extend .flex-container;
+        display: none;
+        max-width: 338px;
+        width: 100%;
+        margin-bottom: 0;
+        
+        @media (min-width: 768px) {
+            display: flex;
+        }
+    }
+
+    &__btn {
+        max-width: 111px;
+    }
+
+    &__input {
+        max-width: 220px;
+    }
+
+    &__right {
+        display: flex;
+        align-items: center;
+
+        @media (min-width: 1200px) {
+            width: 100%;
+        }
+    }
+
+    &__hamburger {
+        height: 21px;
+        margin-left: 15px;
+
+        &:focus {
+            outline: 0;
+        }
+
+        @media (min-width: 1200px) {
+            display: none;
+        }
+    }
+
+    &__collapse {
+        position: absolute;
+        top: 85px;
+        background-color: white;
+        width: 100%;
+        padding-left: 15px;
+        padding-top: 20px;
+        padding-bottom: 5px;
+        display: none;
+        
+        &--open {
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            top: 115px;
+        }
+
+        @media (min-width: 1200px) {
+            display: none;
+        }
+    }
+
+    &__items {
+
+    }
+
+    &__item {
+        text-align: center;
+        margin-bottom: 15px;
+        position: relative;
+        padding-right: 20px;
+        max-width: 90px;
+
+        &--active {
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 0;
+                width: 5px;
+                height: 50px;
+                background-color: $blue;
+            }
+        }
+
+        &--logout {
+            max-width: 116px;
+        }
+    }
+
+    &__image {
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    &__text {
+        font-weight: normal;
+        font-size: 14px;
+        color: #000000;
+    }
+
+    @media (min-width: 768px) {
+        height: 115px;
+    }
+}

@@ -1,0 +1,36 @@
+.nav {
+  padding-top: 35px;
+  display: block;
+
+  &__heading {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 50px;
+    color: black;
+    margin-bottom: 10px;
+
+    @media (min-width: 992px) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__btn {
+    @media (min-width: 576px) {
+      max-width: 246px;
+    }
+
+    @media (min-width: 992px) {
+      max-width: 190px;
+    }
+
+    @media (min-width: 1200px) {
+      max-width: 246px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

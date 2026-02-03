@@ -1,0 +1,92 @@
+.input {
+    font-family: 'Roboto', sans-serif;
+    height: 45px;
+    width: 100%;
+    background-color: white;
+    border: 1px solid $grey;
+    box-sizing: border-box;
+    border-radius: 316.5px;
+    line-height: 19px;
+    font-size: 16px;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+    &:focus {
+        outline: 0;
+    }
+
+    &::placeholder {
+        font-style: italic;
+        font-weight: normal;
+        font-size: 16px;
+        color: $jumbo;
+        opacity: 1;
+    }
+
+    &[type='number'] {
+        -moz-appearance:textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        &::after {
+            position: absolute;
+            right: 20px;
+        }
+    }
+
+    &[disabled='disabled'] {
+        background-color: $alto;
+    }
+
+    &--select {
+        appearance: none; 
+        background: white url('/img/down-chevron.svg') no-repeat right 18px center / 13px;
+        text-transform: capitalize;
+        
+        &::-ms-expand {
+            display: none;
+        }
+
+        option {
+            font-style: normal;
+            color: black;   
+            text-transform: capitalize;
+            
+            &:first-child {
+                font-style: italic;
+                color: $jumbo;    
+            }
+        }
+    }
+
+    &--not-chosen {
+        color: $jumbo;
+        font-style: italic;
+    }
+
+    &--textarea {
+        resize: none;
+        height: 100px;
+        border-radius: 7px;
+        padding-top: 13px;
+    }
+
+    &--date-filter {
+        min-width: 180px;
+        
+        &:disabled,
+        &[readonly] {
+            background-color: #fff;
+        }
+
+        @media (min-width: 992px) {
+            max-width: 290px;
+        }
+    }
+}

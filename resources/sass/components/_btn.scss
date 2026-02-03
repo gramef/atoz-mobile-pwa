@@ -1,0 +1,65 @@
+.btn {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #FFFFFF;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    position: relative;
+    border-radius: 23px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    &:hover {
+        color: white;
+    }
+
+    &--primary {
+        background-color: $orange;
+        border-radius: 23px;
+    }
+
+    &--secondary {
+        background-color: $blue;
+        border-radius: 28.9286px;
+    }
+
+    &--grey {
+        background-color: $grey;
+        border-radius: 23px;
+    }
+
+    &--cancel,
+    &--reject {
+        background-color: $red;
+        border-radius: 27.3649px;
+    }
+
+    &--delete {
+        background-color: $red;
+        border-radius: 23px;
+    }
+
+    &--logout {
+        background-color: $grey;
+    }
+
+    &--small {
+        height: 35px;
+        margin: auto;
+        font-size: 14px;
+        border-radius: 23px;
+    }
+
+    &--get-directions {
+        position: absolute;
+        left: 24px;
+        bottom: 21px;
+        height: 35px;
+        font-size: 14px;
+        line-height: 16px;
+    }
+}

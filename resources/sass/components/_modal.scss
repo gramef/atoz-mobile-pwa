@@ -1,0 +1,14 @@
+.modal {
+
+  &-picture {
+    max-width: 250px;
+    margin: 0 auto 15px;
+    display: block;
+  }
+
+  &-name {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 0;
+  }
+}

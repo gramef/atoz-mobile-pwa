@@ -1,0 +1,18 @@
+.filter {
+  margin: 25px 0 32px;
+
+  &__input {
+    margin-bottom: 9px;
+
+    @media (min-width: 768px) {
+      max-width: 220px;
+      margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: 992px) {
+    margin-top: 45px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,93 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
+@import 'variables';
+
+// Vendor
+@import '~bootstrap/scss/bootstrap';
+@import '~dropzone/dist/dropzone';
+@import '~flatpickr/dist/flatpickr.css';
+@import '~flatpickr/dist/themes/material_orange.css';
+@import '~select2/src/scss/core';
+
+$hamburger-padding-x           : 0;
+$hamburger-padding-y           : 0;
+$hamburger-layer-width         : 35px;
+$hamburger-layer-height        : 3px;
+$hamburger-hover-opacity       : 1;
+$hamburger-types: (
+    spin
+);
+
+@import '~hamburgers/_sass/hamburgers/hamburgers';
+
+// Base styles
+@import './base/base';
+
+// Layout styles
+@import './layouts/layouts';
+
+// Component styles
+@import './components/components';
+
+// Page styles
+@import './pages/pages';
+
+.daterangepicker .drp-buttons .btn {
+    margin-left: 5px;
+}
+
+.daterangepicker .cancelBtn {
+    @extend .btn--cancel;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.daterangepicker .applyBtn {
+    @extend .btn--primary;
+    border: 0;
+    max-width: 111px;
+    display: inline-block;
+    margin-left: 5px;
+
+    &:hover,
+    &:active {
+        background-color: $orange;
+    }
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.page-link {
+    color: $blue;
+}
+
+.page-item.active .page-link {
+    background-color: $blue;
+    border-color: $blue;
+}
+
+.text-black {
+    color: #000000;
+}
+
+.text-gray {
+    color: $gray-600;
+}
+
+.map {
+    height: 322px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.user-select-none {
+    user-select: none;
+}
+
+.input[disabled="disabled"] {
+    color: $jumbo;
+}

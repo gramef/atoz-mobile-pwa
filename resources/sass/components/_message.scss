@@ -1,0 +1,54 @@
+.message {
+    align-items: center;
+    border-bottom: 2px solid;
+    color: white;
+    display: inline-flex;
+    padding-right: 15px;
+    margin-top: 10px;
+
+    &::before {
+        content: '';
+        background: no-repeat center;
+        width: 45px;
+        height: 45px;
+    }
+
+    &__close {
+        width: 20px;
+        height: 20px;
+        background: url('../../public/img/close.svg') no-repeat center;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__text {
+        padding-left: 15px;
+        padding-right: 40px;
+    }
+
+    &--success {
+        background-color: #339f7b;
+        border-bottom-color: #2c6e58;
+
+        &::before {
+            background-color: #39b189;
+            background-image: url('../../public/img/tick.svg');
+        }
+    }
+
+    &--error {
+        background-color: #a80511;
+        border-bottom-color: #7a040c;
+
+        &::before {
+            background-color: #bb0613;
+            background-image: url('../../public/img/error.svg');
+        }
+    }
+
+    &--close {
+        display: none;
+    }
+}

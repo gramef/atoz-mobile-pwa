@@ -1,0 +1,26 @@
+$body-bg: #f9f9f9;
+$body-color: black;
+$font-family-base: 'Roboto';
+
+$orange: #EFA847;
+$blue: #369ECC;
+$green: #7ED321;
+$red: #D0021B;
+$flushMahogany: #CC3636;
+$grey: #9B9B9B;
+$gallery: #EDEDED;
+$dustyGrey: #979797;
+$alto: #E0E0E0;
+$purple: #8C2155;
+$tundora: #4A4A4A;
+$jumbo: #808184;
+$gray-600: #818181;
+
+$theme-colors: (
+  'primary': $orange,
+  'secondary': $blue,
+  'red': $red,
+  'purple': $purple,
+  'gray': $grey,
+  'light-gray': $gallery,
+);

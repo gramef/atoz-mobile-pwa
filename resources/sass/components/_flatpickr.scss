@@ -1,0 +1,31 @@
+.flatpickr-months .flatpickr-month,
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-weekdays, 
+.flatpickr-day.selected.startRange, 
+.flatpickr-day.startRange.startRange, 
+.flatpickr-day.endRange.startRange,
+.flatpickr-day.selected.endRange, 
+.flatpickr-day.startRange.endRange, 
+.flatpickr-day.endRange.endRange,
+span.flatpickr-weekday,
+.flatpickr-current-month  
+.flatpickr-monthDropdown-month,
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month,
+.flatpickr-day.selected {
+  background-color: $blue;
+  border-color: $blue;
+}
+
+span.flatpickr-weekday {
+  color: white;
+}
+
+.flatpickr-calendar.arrowTop::after {
+  border-bottom-color: $blue;
+}
+
+.flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)), 
+.flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)), 
+.flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+  box-shadow: -10px 0 0 $blue;
+}

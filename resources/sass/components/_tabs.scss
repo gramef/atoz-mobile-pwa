@@ -1,0 +1,36 @@
+.tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $dustyGrey;
+    margin-bottom: 43px;
+
+    &__tab {
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+
+    &__text {
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: 'SF UI Text';
+        display: inline-block;
+
+        &--link {
+            color: $blue;
+
+            &:hover {
+                text-decoration: none;
+                color: $blue;
+            }
+        }
+    }
+
+    @media (min-width: 576px) {
+        padding-bottom: 10px;
+    }
+}

@@ -1,0 +1,23 @@
+.choices {
+    display: flex;
+    padding-left: 0;
+    margin: 0;
+
+    &__choice {
+        display: flex;
+        align-items: center;
+        margin-right: 30px;
+
+        &--last {
+            margin-right: 0;
+        }
+    }
+
+    &__radio {
+        margin-right: 10px;
+    }
+
+    &__label {
+        margin: 0;
+    }
+}

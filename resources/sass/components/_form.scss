@@ -1,0 +1,148 @@
+.form {
+
+    &__field {
+        margin-bottom: 20px;
+
+        @media (min-width: 992px) {
+            margin-bottom: 26px;
+
+            &--no-mb {
+                margin-bottom: 0;
+            }
+
+            &--middle {
+                margin-top: 25px;
+            }
+        }
+    }
+
+    &__label,
+    &__input {
+        margin-bottom: 9px;
+    }
+
+    &__label {
+        display: block;
+
+        &--radio {
+            margin-bottom: 0;
+            text-transform: capitalize;
+        }
+
+        &--long {
+            @media (min-width: 576px) {
+                margin: 0 26px 0 0;
+            }
+        }
+    }
+
+    &__input {
+
+        &--time {
+            @media (min-width: 768px) {
+                margin-right: 26px;
+            }
+        }
+
+        &--title {
+            @media (min-width: 768px) {
+                max-width: 111px;
+                margin-right: 12px;
+            }
+        }
+
+        &--small {
+            @media (min-width: 768px) {
+                max-width: 173px;
+            }
+        }
+
+        &--cost {
+            padding-left: 35px;
+        }
+
+        &--smaller {
+            @media (min-width: 992px) {
+                max-width: 192px;
+            }
+        }
+    }
+
+    &__cost {
+        position: relative;
+        
+        &::before {
+            content: '£';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 20px;
+            padding-bottom: 2px;
+        }
+    }
+
+    &__inputs {
+        @media (min-width: 768px) {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    &__btn {
+        @media (min-width: 768px) {
+            margin-left: auto;
+        }
+    }
+
+    &__special-instructions {
+        height: 151px;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+
+        &--method {
+            margin-bottom: 10px;
+        }
+    }
+
+    &__radios {
+        max-width: 230px;
+    }
+
+    &__radio {
+        margin: 0 10px 0 0;
+    }
+
+    &__long-field {
+        margin-bottom: 18px;
+
+        @media (min-width: 576px) {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &__after-input {
+        font-size: 14px;
+        line-height: 16px;
+        color: black;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &__total {
+        width: 70px;
+    }
+}
+
+.form-control:read-only {
+    background-color: #fff;
+}
+
+.form-control:disabled {
+    background-color: $alto;
+}

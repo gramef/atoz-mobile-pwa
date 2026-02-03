@@ -1,0 +1,9 @@
+.email {
+  background-color: #f9f9f9;
+}
+
+.email__logo {
+  display: block;
+  margin: 23px auto 27px;
+}
+

@@ -1,0 +1,35 @@
+.content {
+    @extend .container-fluid;
+    margin-top: 85px;
+
+    &__table {
+        overflow-x: auto;
+        padding-bottom: 30px;
+
+        @media (min-width: 1400px) {
+            overflow-x: visible;
+        }
+    }
+
+    &__heading {
+        font-size: 18px;
+        line-height: 19px;
+        color: black;
+
+        a {
+            color: $blue;
+        }
+    }
+
+    @media (min-width: 768px) {
+        margin-top: 115px;
+    }
+
+    @media (min-width: 1200px) {
+        margin-left: 115px;
+        width: auto;
+        max-width: none;
+        padding-right: 45px;
+        padding-left: 52px;
+    }
+}

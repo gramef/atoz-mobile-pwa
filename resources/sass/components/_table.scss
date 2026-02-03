@@ -1,0 +1,133 @@
+.table {
+    min-width: 1000px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+
+    &__header {
+        color: white;
+    }
+
+    &__heading {
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 19px;
+        color: #FFFFFF;
+        border-right: 1px solid white;
+        background: $black;
+        text-align: center;
+
+        &:first-child {
+            border-top-left-radius: 8px;
+        }
+
+        &:last-child {
+            padding: 0;
+            border-top-right-radius: 8px;
+            border-right: 0;
+        }
+    }
+
+    &__row {
+        height: 63px;
+
+        &--short {
+            height: 60px;
+        }
+
+        &:nth-child(odd) {
+            background-color: white;
+        }
+
+        &:nth-child(even) {
+            background-color: $gallery;
+        }
+    }
+
+    &__link {
+        color: $orange;
+
+        &:hover {
+            text-decoration: none;
+            color: $orange;
+        }
+    }
+
+    &__data {
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 21px;
+        color: #000000;
+        border-right: 1px solid white;
+        max-width: 189px;
+        margin: auto;
+
+        &--actions {
+            border: 0;
+        }
+
+        &--wide {
+            max-width: 270px;
+
+            .table__btn {
+                margin: 0;
+            }
+        }
+
+        &--grey {
+            color: $tundora;
+        }
+    }
+
+    th {
+        padding-top: 22px;
+        padding-bottom: 19px;
+        border-top: 0;
+    }
+
+    td {
+        border-top: 0;
+    }
+
+    thead th {
+        border-bottom: 0;
+    }
+
+    .table__data {
+        padding: 14px 0 14px 0;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    &__btn {
+        width: auto;
+        height: 35px;
+        margin: auto;
+        border-radius: 22.5px;
+        display: inline-flex;
+        font-size: 14px;
+        min-width: 60px;
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+    }
+
+    &__agent-name {
+        color: $purple;
+        font-weight: bold;
+        background-color: transparent;
+        border: 0;
+        appearance: none;
+        padding: 0;
+
+        &:focus {
+            outline: 0;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &--detail {
+        min-width: auto;
+    }
+}
