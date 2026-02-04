@@ -1,13 +1,53 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/((?!_expo|assets|sw\\.js|manifest\\.json|favicon\\.ico|index\\.html).*)",
-      "destination": "/index.html"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/sw\\.js$",
+      "dest": "/dist/sw.js"
+    },
+    {
+      "src": "/manifest\\.json$",
+      "dest": "/dist/manifest.json"
+    },
+    {
+      "src": "/favicon\\.ico$",
+      "dest": "/dist/favicon.ico"
+    },
+    {
+      "src": "/_expo/(.*)",
+      "dest": "/dist/_expo/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/dist/assets/$1"
+    },
+    {
+      "src": "/index\\.html$",
+      "dest": "/dist/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/index.html"
     }
   ],
   "headers": [
     {
       "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    },
+    {
+      "source": "/dist/sw.js",
       "headers": [
         {
           "key": "Service-Worker-Allowed",
