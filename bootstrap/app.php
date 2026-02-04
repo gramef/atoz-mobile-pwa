@@ -15,6 +15,18 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+// Configure writable storage path for Vercel
+if (getenv('VERCEL')) {
+    $storagePath = '/tmp/storage';
+    if (!is_dir($storagePath)) {
+        @mkdir($storagePath, 0755, true);
+        @mkdir($storagePath . '/framework/cache', 0755, true);
+        @mkdir($storagePath . '/framework/sessions', 0755, true);
+        @mkdir($storagePath . '/framework/views', 0755, true);
+        @mkdir($storagePath . '/logs', 0755, true);
+    }
+    $app->useStoragePath($storagePath);
+}
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

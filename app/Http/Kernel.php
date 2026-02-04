@@ -14,6 +14,21 @@ use App\Http\Middleware\RedirectIfNoAgentsHaveQuotedJob;
 class Kernel extends HttpKernel
 {
     /**
+     * The bootstrap classes for the application.
+     * Override to use custom HandleExceptions for PHP 8.x compatibility.
+     *
+     * @var array
+     */
+    protected $bootstrappers = [
+        \Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables::class,
+        \Illuminate\Foundation\Bootstrap\LoadConfiguration::class,
+        \App\Bootstrap\HandleExceptions::class,
+        \Illuminate\Foundation\Bootstrap\RegisterFacades::class,
+        \Illuminate\Foundation\Bootstrap\RegisterProviders::class,
+        \Illuminate\Foundation\Bootstrap\BootProviders::class,
+    ];
+
+    /**
      * The application's global HTTP middleware stack.
      *
      * These middleware are run during every request to your application.
@@ -62,7 +77,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-         'blockIP' =>  \App\Http\Middleware\BlockIpMiddleware::class,
+        'blockIP' => \App\Http\Middleware\BlockIpMiddleware::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -81,7 +96,6 @@ class Kernel extends HttpKernel
         'redirect_if_agent_is_not_matched_to_job' => RedirectIfAgentIsNotMatchedToJob::class,
         'redirect_new_agent_to_profile' => RedirectNewAgentToProfile::class,
         'redirect_if_no_agents_have_quoted_job' => RedirectIfNoAgentsHaveQuotedJob::class,
-        
     ];
 
     /**

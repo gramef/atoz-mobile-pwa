@@ -10,7 +10,33 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "eslint ."
+    "build": "expo export --platform web",
+    "vercel-build": "expo export --platform web",
+    "lint": "eslint app src metro.config.js babel.config.js --ext .js,.ts,.tsx"
+  },
+  "eslintConfig": {
+    "extends": [
+      "expo"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "src/**/*.{ts,tsx}"
+        ],
+        "env": {
+          "browser": true
+        }
+      },
+      {
+        "files": [
+          "metro.config.js",
+          "babel.config.js"
+        ],
+        "env": {
+          "node": true
+        }
+      }
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",

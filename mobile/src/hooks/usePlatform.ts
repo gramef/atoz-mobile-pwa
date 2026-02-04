@@ -71,7 +71,7 @@ export function usePlatform(): PlatformInfo {
 /**
  * Get platform-specific feature availability
  */
-export function getPlatformFeatures() {
+export function usePlatformFeatures() {
     const platform = usePlatform();
 
     return {
@@ -106,3 +106,5 @@ export function getPlatformFeatures() {
         installPrompt: platform.isWeb && !platform.isPWA,
     };
 }
+
+export const getPlatformFeatures = usePlatformFeatures;

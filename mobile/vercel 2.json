@@ -1,0 +1,23 @@
+{
+  "redirects": [],
+  "rewrites": [
+    { "source": "/manifest.json", "destination": "/dist/manifest.json" },
+    { "source": "/sw.js", "destination": "/dist/sw.js" },
+    { "source": "/favicon.ico", "destination": "/dist/favicon.ico" },
+    { "source": "/_expo/(.*)", "destination": "/dist/_expo/$1" },
+    { "source": "/assets/(.*)", "destination": "/dist/assets/$1" },
+    {
+      "source": "/((?!_expo|assets|manifest.json|sw.js|favicon.ico).*)",
+      "destination": "/dist/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Service-Worker-Allowed", "value": "/" },
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    }
+  ]
+}
