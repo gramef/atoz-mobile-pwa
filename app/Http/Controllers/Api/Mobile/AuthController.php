@@ -48,7 +48,7 @@ class AuthController extends Controller
 
         // Generate API token
         $token = Str::random(60);
-        $user->api_token = hash('sha256', $token);
+        $user->remember_token = hash('sha256', $token);
         $user->save();
 
         return response()->json([
@@ -61,6 +61,7 @@ class AuthController extends Controller
                     'first_name' => $user->first_name,
                     'last_name' => $user->last_name,
                     'full_name' => $user->fullName,
+                    'roles' => $user->getRoleNames(),
                 ],
                 'token' => $token,
             ]
@@ -92,6 +93,7 @@ class AuthController extends Controller
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'full_name' => $user->fullName,
+                'roles' => $user->getRoleNames(),
                 'agent' => $user->agent,
             ]
         ]);
