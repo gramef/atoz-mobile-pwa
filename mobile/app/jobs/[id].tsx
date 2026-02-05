@@ -17,8 +17,10 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function JobDetailsScreen() {
     const params = useLocalSearchParams();
-    const jobId = Number(params.id);
-    const jobType = params.type as 'interpreter' | 'translator';
+    const key = String(params.id ?? '');
+    const [embeddedType, embeddedRawId] = key.includes('-') ? key.split('-') : [null, null];
+    const jobType = (embeddedType || params.type) as 'interpreter' | 'translator';
+    const jobId = Number(embeddedRawId || params.jobId || params.id);
 
     const [job, setJob] = useState<any>(null);
     const [loading, setLoading] = useState(true);
@@ -31,10 +33,14 @@ export default function JobDetailsScreen() {
     const loadJobDetails = async () => {
         try {
             setLoading(true);
+            if (!['interpreter', 'translator'].includes(jobType) || !Number.isFinite(jobId)) {
+                setJob(null);
+                return;
+            }
             const response = jobType === 'interpreter'
                 ? await getInterpreterJob(jobId)
                 : await getTranslatorJob(jobId);
-            setJob(response.data);
+            setJob((response as any)?.data?.data ?? (response as any)?.data ?? null);
         } catch (error) {
             console.error('Error loading job details:', error);
         } finally {

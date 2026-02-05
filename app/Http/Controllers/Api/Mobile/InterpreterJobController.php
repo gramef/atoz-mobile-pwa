@@ -26,15 +26,24 @@ class InterpreterJobController extends Controller
             ], 403);
         }
 
-        $jobs = InterpreterJob::where('matched_agent_id', $agent->id)
-            ->with(['client', 'to_language', 'timesheet'])
-            ->orderBy('date', 'desc')
-            ->paginate(20);
+        $perPage = (int) $request->get('per_page', 20);
 
-        return response()->json([
-            'success' => true,
-            'data' => $jobs
-        ]);
+        $jobs = InterpreterJob::query()
+            ->with(['to_language', 'client', 'timesheet'])
+            ->where(function ($q) use ($agent) {
+                $q->where('agent_id', $agent->id)
+                    ->orWhere(function ($q) use ($agent) {
+                        $q->whereNull('agent_id')
+                            ->whereHas('matchedAgents', function ($mq) use ($agent) {
+                                $mq->where('agent_id', $agent->id)
+                                    ->whereIn('status', [0, 2]);
+                            });
+                    });
+            })
+            ->orderBy('appointment_date', 'desc')
+            ->paginate($perPage > 0 ? $perPage : 20);
+
+        return response()->json($jobs);
     }
 
     /**
@@ -56,22 +65,46 @@ class InterpreterJobController extends Controller
             ], 403);
         }
 
-        $job = InterpreterJob::where('id', $id)
-            ->where('matched_agent_id', $agent->id)
-            ->with(['client', 'to_language', 'timesheet', 'documents', 'feedback'])
-            ->first();
+        $job = InterpreterJob::with([
+            'to_language',
+            'client.user',
+            'agent.user',
+            'timesheet',
+            'documents',
+            'feedback',
+        ])->find($id);
 
         if (!$job) {
             return response()->json([
-                'success' => false,
                 'message' => 'Job not found'
             ], 404);
         }
 
-        return response()->json([
-            'success' => true,
-            'data' => $job
-        ]);
+        if ((int) $job->agent_id === (int) $agent->id) {
+            return response()->json($job);
+        }
+
+        $matched = $job->matchedAgents()->where('agent_id', $agent->id)->first();
+
+        if (!$matched) {
+            return response()->json([
+                'message' => 'Job not found'
+            ], 404);
+        }
+
+        if (in_array($matched->status, ['cancelled', 'rejected'])) {
+            return response()->json([
+                'message' => 'Job not found'
+            ], 404);
+        }
+
+        if ($job->agent_id && (int) $job->agent_id !== (int) $agent->id) {
+            return response()->json([
+                'message' => 'This assignment is no longer available!'
+            ], 403);
+        }
+
+        return response()->json($job);
     }
 
     /**
@@ -93,31 +126,49 @@ class InterpreterJobController extends Controller
             ], 403);
         }
 
-        $job = InterpreterJob::where('id', $id)
-            ->where('matched_agent_id', $agent->id)
-            ->first();
+        $job = InterpreterJob::with('matchedAgents')->find($id);
 
         if (!$job) {
             return response()->json([
-                'success' => false,
                 'message' => 'Job not found'
             ], 404);
         }
 
-        if ($job->status !== 'pending') {
+        if ($job->agent_id && (int) $job->agent_id !== (int) $agent->id) {
             return response()->json([
-                'success' => false,
+                'message' => 'This assignment is no longer available!'
+            ], 403);
+        }
+
+        $matched = $job->matchedAgents()->where('agent_id', $agent->id)->first();
+
+        if (!$matched) {
+            return response()->json([
+                'message' => 'Job not found'
+            ], 404);
+        }
+
+        if (in_array($matched->status, ['cancelled', 'rejected'])) {
+            return response()->json([
+                'message' => 'Job not found'
+            ], 404);
+        }
+
+        if ((int) $job->status !== 0 && (int) $job->status !== 5) {
+            return response()->json([
                 'message' => 'Job cannot be accepted in its current state'
             ], 400);
         }
 
-        $job->status = 'accepted';
-        $job->save();
+        $matched->update(['status' => 4]);
+        $job->update([
+            'agent_id' => $agent->id,
+            'status' => 1,
+        ]);
 
         return response()->json([
-            'success' => true,
             'message' => 'Job accepted successfully',
-            'data' => $job
+            'data' => $job->fresh(['to_language', 'client.user', 'agent.user', 'timesheet', 'documents', 'feedback'])
         ]);
     }
 
@@ -140,15 +191,18 @@ class InterpreterJobController extends Controller
             ], 403);
         }
 
-        $job = InterpreterJob::where('id', $id)
-            ->where('matched_agent_id', $agent->id)
-            ->first();
+        $job = InterpreterJob::find($id);
 
         if (!$job) {
             return response()->json([
-                'success' => false,
                 'message' => 'Job not found'
             ], 404);
+        }
+
+        if ((int) $job->agent_id !== (int) $agent->id) {
+            return response()->json([
+                'message' => 'Forbidden'
+            ], 403);
         }
 
         if (!$job->canBeCompleted()) {
@@ -158,13 +212,11 @@ class InterpreterJobController extends Controller
             ], 400);
         }
 
-        $job->status = 'completed';
-        $job->save();
+        $job->update(['status' => 4]);
 
         return response()->json([
-            'success' => true,
             'message' => 'Job completed successfully',
-            'data' => $job
+            'data' => $job->fresh(['to_language', 'client.user', 'agent.user', 'timesheet', 'documents', 'feedback'])
         ]);
     }
 }

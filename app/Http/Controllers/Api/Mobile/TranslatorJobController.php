@@ -26,14 +26,24 @@ class TranslatorJobController extends Controller
             ], 403);
         }
 
-        $jobs = TranslatorJob::where('matched_agent_id', $agent->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(20);
+        $perPage = (int) $request->get('per_page', 20);
 
-        return response()->json([
-            'success' => true,
-            'data' => $jobs
-        ]);
+        $jobs = TranslatorJob::query()
+            ->with(['toLanguage', 'fromLanguage'])
+            ->where(function ($q) use ($agent) {
+                $q->where('agent_id', $agent->id)
+                    ->orWhere(function ($q) use ($agent) {
+                        $q->whereNull('agent_id')
+                            ->whereHas('matchedAgents', function ($mq) use ($agent) {
+                                $mq->where('agent_id', $agent->id)
+                                    ->whereIn('status', [0, 2]);
+                            });
+                    });
+            })
+            ->orderBy('target_date', 'desc')
+            ->paginate($perPage > 0 ? $perPage : 20);
+
+        return response()->json($jobs);
     }
 
     /**
@@ -55,21 +65,39 @@ class TranslatorJobController extends Controller
             ], 403);
         }
 
-        $job = TranslatorJob::where('id', $id)
-            ->where('matched_agent_id', $agent->id)
-            ->first();
+        $job = TranslatorJob::with([
+            'toLanguage',
+            'fromLanguage',
+            'client.user',
+            'agent.user',
+            'documents',
+        ])->find($id);
 
         if (!$job) {
             return response()->json([
-                'success' => false,
                 'message' => 'Job not found'
             ], 404);
         }
 
-        return response()->json([
-            'success' => true,
-            'data' => $job
-        ]);
+        if ((int) $job->agent_id === (int) $agent->id) {
+            return response()->json($job);
+        }
+
+        $matched = $job->matchedAgents()->where('agent_id', $agent->id)->first();
+
+        if (!$matched || in_array($matched->status, ['cancelled', 'rejected'])) {
+            return response()->json([
+                'message' => 'Job not found'
+            ], 404);
+        }
+
+        if ($job->agent_id && (int) $job->agent_id !== (int) $agent->id) {
+            return response()->json([
+                'message' => 'This assignment is no longer available!'
+            ], 403);
+        }
+
+        return response()->json($job);
     }
 
     /**
@@ -91,31 +119,49 @@ class TranslatorJobController extends Controller
             ], 403);
         }
 
-        $job = TranslatorJob::where('id', $id)
-            ->where('matched_agent_id', $agent->id)
-            ->first();
+        $job = TranslatorJob::with('matchedAgents')->find($id);
 
         if (!$job) {
             return response()->json([
-                'success' => false,
                 'message' => 'Job not found'
             ], 404);
         }
 
-        if ($job->status !== 'pending') {
+        if ($job->agent_id && (int) $job->agent_id !== (int) $agent->id) {
             return response()->json([
-                'success' => false,
+                'message' => 'This assignment is no longer available!'
+            ], 403);
+        }
+
+        $matched = $job->matchedAgents()->where('agent_id', $agent->id)->first();
+
+        if (!$matched) {
+            return response()->json([
+                'message' => 'Job not found'
+            ], 404);
+        }
+
+        if (in_array($matched->status, ['cancelled', 'rejected'])) {
+            return response()->json([
+                'message' => 'Job not found'
+            ], 404);
+        }
+
+        if ((int) $job->status !== 0 && (int) $job->status !== 5) {
+            return response()->json([
                 'message' => 'Job cannot be accepted in its current state'
             ], 400);
         }
 
-        $job->status = 'accepted';
-        $job->save();
+        $matched->update(['status' => 4]);
+        $job->update([
+            'agent_id' => $agent->id,
+            'status' => 1,
+        ]);
 
         return response()->json([
-            'success' => true,
             'message' => 'Job accepted successfully',
-            'data' => $job
+            'data' => $job->fresh(['toLanguage', 'fromLanguage', 'client.user', 'agent.user', 'documents'])
         ]);
     }
 }

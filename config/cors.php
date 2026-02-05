@@ -12,6 +12,7 @@ return [
     |
     */
    
+    'paths' => ['api/*'],
     'supportsCredentials' => false,
     'allowedOrigins' => ['*'],
     'allowedOriginsPatterns' => [],

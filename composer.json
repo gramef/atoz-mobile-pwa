@@ -96,6 +96,22 @@
             "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/mn_MN",
             "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/ru_RU",
             "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/uk_UA"
+        ],
+        "vercel": [
+            "rm -rf vendor/mpdf/mpdf/ttfonts",
+            "rm -rf vendor/aws/aws-sdk-php/src/data",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/zh_TW",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/zh_CN",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/ja_JP",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/ko_KR",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/hy_AM",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/el_GR",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/he_IL",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/ka_GE",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/kk_KZ",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/mn_MN",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/ru_RU",
+            "rm -rf vendor/fzaninotto/faker/src/Faker/Provider/uk_UA"
         ]
     }
 }

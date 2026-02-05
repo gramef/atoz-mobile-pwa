@@ -94,10 +94,10 @@ export default function JobDetail() {
         setJobType(type === 'interpreter' ? 'interpreter' : 'translator');
         if (type === 'interpreter') {
           const res = await getInterpreterJob(id);
-          setData(res.data);
+          setData((res as any)?.data?.data ?? (res as any)?.data ?? null);
         } else {
           const res = await getTranslatorJob(id);
-          setData(res.data);
+          setData((res as any)?.data?.data ?? (res as any)?.data ?? null);
         }
       } catch (e: any) {
         console.error('Failed to load job:', e);
@@ -115,10 +115,10 @@ export default function JobDetail() {
     try {
       if (jobType === 'interpreter') {
         const res = await getInterpreterJob(data.id);
-        setData(res.data);
+        setData((res as any)?.data?.data ?? (res as any)?.data ?? null);
       } else {
         const res = await getTranslatorJob(data.id);
-        setData(res.data);
+        setData((res as any)?.data?.data ?? (res as any)?.data ?? null);
       }
     } catch (e) {
       console.error('Failed to reload job:', e);
@@ -348,9 +348,58 @@ export default function JobDetail() {
     );
   }
 
-  const isInterpreter = 'language' in data;
-  const status = data.status ?? -1;
-  const statusName = data.status_name || '';
+  const raw: any = data;
+  const isInterpreter =
+    typeof raw?.language === 'string' ||
+    typeof raw?.appointment_date === 'string' ||
+    typeof raw?.start_time === 'string' ||
+    !!raw?.to_language_id;
+
+  const status = typeof raw?.status === 'number' ? raw.status : parseInt(String(raw?.status ?? -1));
+  const statusName = raw?.status_name || raw?.statusName || '';
+
+  const clientName =
+    raw?.client_name ||
+    raw?.client?.user?.full_name ||
+    raw?.client?.user?.fullName ||
+    raw?.client?.user?.name ||
+    'N/A';
+
+  const agentName =
+    raw?.agent_name ||
+    raw?.agent?.user?.full_name ||
+    raw?.agent?.user?.fullName ||
+    raw?.agent?.user?.name ||
+    null;
+
+  const interpreterLanguage =
+    raw?.language ||
+    raw?.to_language?.name ||
+    raw?.toLanguage?.name ||
+    'N/A';
+
+  const translatorFrom =
+    (typeof raw?.from_language === 'string' ? raw.from_language : raw?.from_language?.name) ||
+    raw?.fromLanguage?.name ||
+    'N/A';
+
+  const translatorTo =
+    (typeof raw?.to_language === 'string' ? raw.to_language : raw?.to_language?.name) ||
+    raw?.toLanguage?.name ||
+    'N/A';
+
+  const coordsLat = raw?.coordinates?.lat ?? raw?.latitude ?? null;
+  const coordsLng = raw?.coordinates?.lng ?? raw?.longitude ?? null;
+
+  const documents: Doc[] = Array.isArray(raw?.documents)
+    ? raw.documents
+        .map((d: any) => ({
+          id: Number(d?.id),
+          type: d?.type,
+          name: d?.name || d?.file_name || d?.file_reference,
+        }))
+        .filter((d: any) => Number.isFinite(d.id))
+    : [];
 
   // Determine action availability based on status
   const canAccept = status === JOB_STATUS.PENDING || status === JOB_STATUS.QUOTED;
@@ -391,18 +440,18 @@ export default function JobDetail() {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Job Header */}
         <View style={styles.headerCard}>
-          {'language' in data && (
+          {isInterpreter && (
             <>
-              <Text style={styles.jobTitle}>🎤 {data.language}</Text>
+              <Text style={styles.jobTitle}>🎤 {interpreterLanguage}</Text>
               <Text style={styles.jobSubtitle}>
-                {data.appointment_date} {data.start_time ? `at ${data.start_time}` : ''}
+                {raw?.appointment_date} {raw?.start_time ? `at ${raw.start_time}` : ''}
               </Text>
             </>
           )}
-          {'from_language' in data && (
+          {!isInterpreter && (
             <>
-              <Text style={styles.jobTitle}>📄 {data.from_language} → {data.to_language}</Text>
-              <Text style={styles.jobSubtitle}>{data.target_date}</Text>
+              <Text style={styles.jobTitle}>📄 {translatorFrom} → {translatorTo}</Text>
+              <Text style={styles.jobSubtitle}>{raw?.target_date}</Text>
             </>
           )}
 
@@ -418,16 +467,16 @@ export default function JobDetail() {
             <Ionicons name="person-outline" size={20} color={colors.primary} />
             <View style={styles.infoTextContainer}>
               <Text style={styles.infoLabel}>Client</Text>
-              <Text style={styles.infoValue}>{data.client_name || 'N/A'}</Text>
+                <Text style={styles.infoValue}>{clientName}</Text>
             </View>
           </View>
 
-          {data.agent_name && (
+            {agentName && (
             <View style={styles.infoRow}>
               <Ionicons name="person-circle-outline" size={20} color={colors.primary} />
               <View style={styles.infoTextContainer}>
                 <Text style={styles.infoLabel}>Assigned Agent</Text>
-                <Text style={styles.infoValue}>{data.agent_name}</Text>
+                  <Text style={styles.infoValue}>{agentName}</Text>
               </View>
             </View>
           )}
@@ -465,11 +514,18 @@ export default function JobDetail() {
         )}
 
         {/* Map Card for interpreter jobs with address */}
-        {'address' in data && data.address && (
+        {isInterpreter && (interpreterData.address || raw?.address_line_1 || raw?.address_line_2 || raw?.postcode) && (
           <MapCard
-            address={data.address}
-            lat={interpreterData.coordinates?.lat}
-            lng={interpreterData.coordinates?.lng}
+            address={
+              interpreterData.address || {
+                line_1: raw?.address_line_1,
+                line_2: raw?.address_line_2,
+                county: raw?.county,
+                postcode: raw?.postcode,
+              }
+            }
+            lat={coordsLat}
+            lng={coordsLng}
           />
         )}
 
@@ -582,10 +638,10 @@ export default function JobDetail() {
         )}
 
         {/* Documents */}
-        {Array.isArray((data as any).documents) && (data as any).documents.length > 0 && (
+        {documents.length > 0 && (
           <View style={styles.documentsSection}>
             <Text style={styles.sectionTitle}>Documents</Text>
-            <DocumentsList items={(data as any).documents as Doc[]} />
+            <DocumentsList items={documents} />
           </View>
         )}
       </ScrollView>

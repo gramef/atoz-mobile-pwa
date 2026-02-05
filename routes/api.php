@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,24 @@ Route::group([ 'namespace' => 'Api'], function () {
     Route::post( 'documents/delete', 'DocumentController@destroy' )->name('documents.destroy');
 
     Route::get( 'available-interpreters/{job_type}', 'AgentController@index' )->name('agents.index');
+});
+
+Route::group(['namespace' => 'Api\\Mobile'], function () {
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', 'AuthController@login');
+        Route::middleware('auth:api')->group(function () {
+            Route::get('me', 'AuthController@me');
+        });
+    });
+
+    Route::middleware('auth:api')->group(function () {
+        Route::get('interpreter-jobs', 'InterpreterJobController@index');
+        Route::get('interpreter-jobs/{id}', 'InterpreterJobController@show');
+        Route::post('interpreter-jobs/{id}/accept', 'InterpreterJobController@accept');
+        Route::post('interpreter-jobs/{id}/complete', 'InterpreterJobController@complete');
+
+        Route::get('translator-jobs', 'TranslatorJobController@index');
+        Route::get('translator-jobs/{id}', 'TranslatorJobController@show');
+        Route::post('translator-jobs/{id}/accept', 'TranslatorJobController@accept');
+    });
 });

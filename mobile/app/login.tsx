@@ -28,6 +28,22 @@ export default function Login() {
   const [biometricType, setBiometricType] = useState('Biometric');
   const setAuth = useAuthStore((s: any) => s.setAuth);
 
+  function normalizeUser(rawUser: any) {
+    return {
+      id: Number(rawUser?.id || 0),
+      name: rawUser?.name || rawUser?.full_name || `${rawUser?.first_name || ''} ${rawUser?.last_name || ''}`.trim(),
+      email: rawUser?.email || '',
+      roles: Array.isArray(rawUser?.roles)
+        ? rawUser.roles
+        : (Array.isArray(rawUser?.agent?.roles) ? rawUser.agent.roles : []),
+      first_name: rawUser?.first_name,
+      last_name: rawUser?.last_name,
+      role: rawUser?.role,
+      title: rawUser?.title,
+      phone: rawUser?.phone,
+    };
+  }
+
   // Check biometric availability on mount
   useEffect(() => {
     checkBiometric();
@@ -51,9 +67,14 @@ export default function Login() {
     setLoading(true);
     try {
       const res = await login(email, password);
-      const token = res.data.token || res.data.access_token;
+      const token = res.data?.token || res.data?.access_token || res.data?.data?.token || res.data?.data?.access_token;
+      if (!token) {
+        throw new Error('Missing token in login response');
+      }
+
       const m = await me(token);
-      await setAuth(token, m.data);
+      const rawUser = m.data?.user || m.data?.data?.user || m.data?.data;
+      await setAuth(token, normalizeUser(rawUser));
 
       // Offer to enable biometric login after successful login
       if (biometricAvailable && !biometricEnabled) {
@@ -82,7 +103,7 @@ export default function Login() {
         const msg =
           status === 404
             ? 'Login endpoint not found on the backend (/api/auth/login). Ensure the Laravel app is running the API auth routes.'
-            : (e as any)?.response?.data?.message || (isNetwork ? 'Network error contacting the backend. Please ensure the server is running.' : 'Please check your email and password.');
+            : (e as any)?.response?.data?.message || (e as any)?.message || (isNetwork ? 'Network error contacting the backend. Please ensure the server is running.' : 'Please check your email and password.');
         Alert.alert('Login failed', String(msg));
       } catch { }
     }
@@ -98,9 +119,10 @@ export default function Login() {
         try {
           // Verify the stored token is still valid
           const m = await me(credentials.token);
-          await setAuth(credentials.token, m.data);
+          const rawUser = m.data?.user || m.data?.data?.user || m.data?.data;
+          await setAuth(credentials.token, normalizeUser(rawUser));
           router.replace('/(tabs)');
-        } catch (e) {
+        } catch {
           setLoading(false);
           Alert.alert(
             'Session Expired',
